@@ -1,0 +1,13 @@
+// app
+include ':app'
+
+// core modules
+include ':core-contracts'
+
+// feature modules
+include ':feature-foo'
+include ':feature-bar'
+
+// test apps
+include ':feature-bar-app'
+

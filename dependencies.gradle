@@ -1,0 +1,47 @@
+ext {
+
+    //Kotlin dependencies
+    kotlinCoroutinesVersion = '1.3.0-M1'
+
+    def kotlinLibs = [
+            kotlinCoroutines       : [group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: kotlinCoroutinesVersion],
+            kotlinCoroutinesAndroid: [group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-android', version: kotlinCoroutinesVersion]
+    ]
+
+    def coreModules = [
+            coreContracts: ':core-contracts'
+    ]
+
+    def featureModules = [
+            featureFoo: ':feature-foo',
+            featureBar: ':feature-bar'
+    ]
+
+
+    featureFooDependencies = [
+            [configuration: "implementation", dependency: project(coreModules.coreContracts)],
+            [configuration: "api", dependency: kotlinLibs.kotlinCoroutines],
+            [configuration: "api", dependency: kotlinLibs.kotlinCoroutinesAndroid]
+    ]
+
+    featureBarDependencies = [
+            [configuration: "implementation", dependency: project(coreModules.coreContracts)],
+            [configuration: "api", dependency: kotlinLibs.kotlinCoroutines],
+            [configuration: "api", dependency: kotlinLibs.kotlinCoroutinesAndroid]
+    ]
+
+    featureBarAppDependencies = [
+            [configuration: "implementation", dependency: project(coreModules.coreContracts)],
+            [configuration: "implementation", dependency: project(featureModules.featureBar)],
+            [configuration: "api", dependency: kotlinLibs.kotlinCoroutines],
+            [configuration: "api", dependency: kotlinLibs.kotlinCoroutinesAndroid]
+    ]
+
+    appDependencies = [
+            [configuration: "implementation", dependency: project(coreModules.coreContracts)],
+            [configuration: "implementation", dependency: project(featureModules.featureFoo)],
+            [configuration: "implementation", dependency: project(featureModules.featureBar)],
+            [configuration: "api", dependency: kotlinLibs.kotlinCoroutines],
+            [configuration: "api", dependency: kotlinLibs.kotlinCoroutinesAndroid]
+    ]
+}
